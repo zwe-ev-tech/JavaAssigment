@@ -51,20 +51,14 @@ public class Client {
                 }
 
                 // Check if the person already exists in the array
-                boolean found = false;
-                for (int v = 0; v < numRecords; v++) {
-                    if (changeRecords[v].getName().equals(name)) {
-                        // If person exists, so the coin value is added to their total
-                        changeRecords[v].addAmount(coinValue);
-                        found = true;
-                        break;
-                    }
-                }
-
+                Change existingPerson = Utils.searchName(numRecords,changeRecords, name);
+                 // If person exists, so the coin value is added to their total
+                if (existingPerson != null) {
+                   existingPerson.addAmount(coinValue);
                 // If person is new, add a new Change object
-                if (!found) {
-                    changeRecords[numRecords] = new Change(name, coinValue);  // Create new object
-                    numRecords++;
+                } else {
+                   changeRecords[numRecords] = new Change(name, coinValue);  // Create new object
+                   numRecords++;
                 }
 
                 // Ask if the user wants to add more data
